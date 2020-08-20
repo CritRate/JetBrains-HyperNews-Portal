@@ -1,0 +1,26 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Hyper news</h2>
+<form action="{% url 'news:news' %}" method="GET">
+    <label for="search"></label>
+    <input type="text" name="q" id="search">
+    <button type="submit">Search</button>
+</form>
+{% for all_posts in posts %}
+    <h4>{{ all_posts.date }}</h4>
+    <ul>
+        {% for post in all_posts.news %}
+            <li><a href="{% url 'news:post' post.link %}">{{ post.title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+<a href="{% url 'news:create_post' %}">new post</a>
+</body>
+</html>
